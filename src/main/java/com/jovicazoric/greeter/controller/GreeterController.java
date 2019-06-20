@@ -1,19 +1,23 @@
 package com.jovicazoric.greeter.controller;
 
-import java.util.List;
-import java.util.Random;
-
+import com.jovicazoric.greeter.model.Person;
+import com.jovicazoric.greeter.service.PersonService;
+import lombok.Data;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
+@Data
 public class GreeterController {
 
-    private static final List<String> NAMES = List.of("Adriana", "Djordje", "Jovica", "Milos", "Sinisa", "Vuk", "Mladen");
+    private final PersonService personService;
 
     @GetMapping("/")
-    public @ResponseBody String greetMe() {
-        return NAMES.get(new Random().nextInt(NAMES.size()));
+    public @ResponseBody
+    List<Person> greetMe() {
+        return personService.getAll();
     }
 }
